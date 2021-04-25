@@ -1,6 +1,7 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow, ipcMain, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
+const exec = require('child_process').exec;
 
 // Initialize remote module
 require('@electron/remote/main').initialize();
@@ -11,15 +12,12 @@ const args = process.argv.slice(1),
 
 function createWindow(): BrowserWindow {
 
-  const electronScreen = screen;
-  const size = electronScreen.getPrimaryDisplay().workAreaSize;
-
   // Create the browser window.
   win = new BrowserWindow({
     x: 0,
     y: 0,
-    width: size.width,
-    height: size.height,
+    width: 1280,
+    height: 800,
     webPreferences: {
       nodeIntegration: true,
       allowRunningInsecureContent: (serve) ? true : false,
@@ -84,3 +82,21 @@ try {
   // Catch Error
   // throw e;
 }
+
+function execute(command, callback) {
+  exec(command, (error, stdout, stderr) => { 
+    if (error) {
+      console.log(error);
+    }
+    if (stderr) {
+      console.log(stderr);
+    }
+    callback(stdout); 
+  });
+};
+
+ipcMain.on("runScript", (event, command) => {
+  execute(command, (output) => {
+    console.log(output);
+  });
+});

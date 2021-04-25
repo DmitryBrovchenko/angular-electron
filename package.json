@@ -38,10 +38,15 @@
     "test:watch": "ng test",
     "e2e": "npm run build:prod && cross-env TS_NODE_PROJECT='e2e/tsconfig.e2e.json' mocha --timeout 300000 --require ts-node/register e2e/**/*.e2e.ts",
     "version": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "dependencies": {
-    "@electron/remote": "1.0.4"
+    "@angular/animations": "11.2.8",
+    "@electron/remote": "1.0.4",
+    "electron-squirrel-startup": "1.0.0",
+    "ng-zorro-antd": "11.4.0"
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "11.1.1",
@@ -61,6 +66,11 @@
     "@angular/platform-browser": "11.2.8",
     "@angular/platform-browser-dynamic": "11.2.8",
     "@angular/router": "11.2.8",
+    "@electron-forge/cli": "6.0.0-beta.54",
+    "@electron-forge/maker-deb": "6.0.0-beta.54",
+    "@electron-forge/maker-rpm": "6.0.0-beta.54",
+    "@electron-forge/maker-squirrel": "6.0.0-beta.54",
+    "@electron-forge/maker-zip": "6.0.0-beta.54",
     "@ngx-translate/core": "13.0.0",
     "@ngx-translate/http-loader": "6.0.0",
     "@types/jasmine": "3.6.7",
@@ -75,7 +85,6 @@
     "core-js": "3.6.5",
     "cross-env": "7.0.3",
     "electron": "12.0.2",
-    "electron-builder": "22.10.5",
     "electron-reload": "1.5.0",
     "eslint": "7.22.0",
     "eslint-plugin-import": "2.22.1",
@@ -105,5 +114,32 @@
   },
   "browserslist": [
     "chrome 83"
-  ]
+  ],
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "angular_electron"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
+  }
 }

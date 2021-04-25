@@ -1,7 +1,26 @@
-<div class="container">
-  <h1 class="title">
-    {{ 'PAGES.HOME.TITLE' | translate }}
-  </h1>
-
-  <a routerLink="/detail">{{ 'PAGES.HOME.GO_TO_DETAIL' | translate }}</a>
-</div>
+<nz-page-header nzTitle="Шаблон формы"></nz-page-header>
+<form nz-form [formGroup]="form" novalidate (submit)=save()>
+  <nz-form-item>
+    <nz-form-label>Выбрать версию</nz-form-label>
+    <nz-select>
+      <nz-option nzValue="version1" nzLabel="Версия 1"></nz-option>
+      <nz-option nzValue="version2" nzLabel="Версия 2"></nz-option>
+    </nz-select>
+  </nz-form-item>
+  <nz-form-item>
+    <label nz-checkbox>Выбор 1</label>
+  </nz-form-item>
+  <nz-form-item>
+    <label nz-checkbox>Выбор 2</label>
+  </nz-form-item>
+  <nz-form-item>
+    <label nz-checkbox>Выбор 3</label>
+  </nz-form-item>
+  <nz-form-item>
+    <label nz-checkbox>Выбор 4</label>
+  </nz-form-item>
+  <nz-form-item>
+    <label nz-checkbox>Выбор 5</label>
+  </nz-form-item>
+  <button nz-button nzType="primary" type="submit">Подтвердить</button>
+</form>
